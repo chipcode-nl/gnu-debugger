@@ -347,27 +347,25 @@ export class GnuDebugSession extends DebugSession {
 		if (!args.gdbCommands) {
 			args.gdbCommands = 
 			[
-			//  `-gdb-version`,
 			`-gdb-set target-async on`,
 			`-enable-pretty-printing`,
 			`-target-select extended-remote ${args.serverHost}:${args.serverPort}`,
 			`-file-exec-and-symbols "${args.program}"`,
-			`-interpreter-exec console "monitor halt"`,
-			`-interpreter-exec console "monitor reset"`,
+			`-interpreter-exec console "monitor reset halt"`,
 			`-target-download`,
-			];
+		];
 		}
 
 		
 		if (!args.server) {
-			args.server = 'JLinkGDBServer';
+			args.server = 'openocd';
 		}
 		args.server = args.server.replace(/\\/g, '/');
 		if (!args.serverHost) {
 			args.serverHost = '';
 		}
 		if (!args.serverPort) {
-			args.serverPort = 2331;
+			args.serverPort = 3333;
 		}
 		if (args.customVariables) {
 			this.customVariables = args.customVariables;
@@ -704,6 +702,11 @@ export class GnuDebugSession extends DebugSession {
 							verifiedBreakpoints.push(breakpoint);
 						});
 				});
+
+				let command = `-exec-run --all`;
+
+				let promise = this.sendCommand(command);
+				promises.push(promise);
 
 				Promise.all(promises).then
 					(() => {
@@ -1339,7 +1342,7 @@ export class GnuDebugSession extends DebugSession {
 		args: DebugProtocol.RestartArguments
 		): void {
 		this.debugServer('restartRequest\n');
-		this.sendCommand('-exec-run').then
+		this.sendCommand('-exec-run --all').then
 			((record: gdbMI.MIresult) => {
 				this.sendResponse(response);
 			});

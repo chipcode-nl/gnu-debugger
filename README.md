@@ -103,13 +103,7 @@ be found
 The Open On-Chip Debugger supports a large amount of debug probes. Starting 
 from Version 0.0.5 you can use OpenOCD as GDB server. 
 
-Install the latest version of OpenOCD on macOS to support the SAMD21 
-microcontroller with [homebrew](https://brew.sh/index_nl). 
-
-```terminal
-brew install --HEAD openocd
-```
 # Release Notes
 
-### Version 1.0.0
-Version for SAMD21 using the latest build of OpenOCD.
+### Version 1.0.1
+Support for Raspberry Pi Picoprobe 

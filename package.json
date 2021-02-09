@@ -3,7 +3,7 @@
 	"displayName": "GNU debugger",
 	"description": "GNU debugger for Visual Studio Code",
 	"icon": "images/GNU_debugger_256.png",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"preview": false,
 	"publisher": "chipcode-nl",
 	"engines": {
