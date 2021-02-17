@@ -151,7 +151,14 @@ export function parseMI
 
       if (r)
       {
-        t[r.name] = r.value;
+        if (!(t[r.name]))
+        {
+          t[r.name] = r.value;
+        }
+        else
+        {
+          t[r.name + r.value] = r.value;
+        }
       }
     } while (output[0] == ',');
     if (output[0] == '}')

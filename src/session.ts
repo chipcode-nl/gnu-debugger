@@ -688,7 +688,8 @@ export class GnuDebugSession extends DebugSession {
 
 			if (breakpoints) {
 				breakpoints.forEach((b) => {
-					let command = `-break-insert "${filename}:${b.line}"`;
+					let command = 
+					`-break-insert -h "${filename}:${b.line}"`;
 
 					let promise = this.sendCommand(command);
 					promises.push(promise);
@@ -702,11 +703,6 @@ export class GnuDebugSession extends DebugSession {
 							verifiedBreakpoints.push(breakpoint);
 						});
 				});
-
-				let command = `-exec-run --all`;
-
-				let promise = this.sendCommand(command);
-				promises.push(promise);
 
 				Promise.all(promises).then
 					(() => {
